@@ -51,3 +51,18 @@ func( b *Binarypatch) Write( data []byte, index int ) {
     b.Filedata[position] = v
   }
 }
+
+func( b *Binarypatch) WriteFile( name string ) (err error) {
+  if name == "" {
+    err = ioutil.WriteFile( b.Filename, b.Filedata, 0744 )
+  } else {
+    err = ioutil.WriteFile( name, b.Filedata, 0744 )
+  }
+  return
+}
+
+func ( b *Binarypatch) Read( index int, length int ) []byte {
+  var data []byte
+  data = b.Filedata[index:index+length]
+  return data
+}
