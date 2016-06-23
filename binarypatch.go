@@ -3,7 +3,8 @@ package binarypatch
 import(
   "io/ioutil"
   "bytes"
-  // "fmt"
+
+  "github.com/kardianos/osext"
 )
 
 type Binarypatch struct {
@@ -64,5 +65,18 @@ func( b *Binarypatch) WriteFile( name string ) (err error) {
 func ( b *Binarypatch) Read( index int, length int ) []byte {
   var data []byte
   data = b.Filedata[index:index+length]
+  return data
+}
+
+func ReadMyself( length int, index int, arch string ) []byte {
+  filename, err := osext.Executable()
+  if err != nil {
+    panic(err)
+  }
+  b := New( filename, arch )
+  if index == -1 {
+    index = b.Locate()
+  }
+  data := b.Read( index, length )
   return data
 }
