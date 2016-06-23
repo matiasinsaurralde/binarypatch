@@ -3,6 +3,7 @@ package binarypatch
 import(
   "io/ioutil"
   "bytes"
+  // "fmt"
 )
 
 type Binarypatch struct {
@@ -42,4 +43,11 @@ func( b *Binarypatch ) Locate() ( index int) {
     }
   }
   return index
+}
+
+func( b *Binarypatch) Write( data []byte, index int ) {
+  for i, v := range data {
+    position := index + i
+    b.Filedata[position] = v
+  }
 }
