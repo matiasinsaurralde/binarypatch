@@ -42,6 +42,24 @@ func( b *Binarypatch ) Locate() ( index int) {
         break
       }
     }
+  case "windows":
+    str := []byte("This")
+    for i, v := range b.Filedata {
+      n := 1
+      byteGroup := []byte{v}
+
+      for n <= len(str) && i < len(b.Filedata) - len(str) {
+        byteGroup = append(byteGroup, b.Filedata[i+n])
+        n++
+      }
+
+      if bytes.Index( byteGroup, str ) == 0 {
+        index = i + len(str)
+        break
+      }
+    }
+  default:
+    index = -1
   }
   return index
 }
