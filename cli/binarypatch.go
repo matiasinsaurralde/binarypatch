@@ -23,6 +23,11 @@ func main() {
 
   myself := binarypatch.ReadMyself(5, -1, "darwin")
 
-  fmt.Println("Myself: ", myself, string(myself) )
+  fmt.Println( "Reading from myself: ", myself )
+
+  b = binarypatch.New( "../sample/sample_win64.exe", "windows" )
+  index = b.Locate()
+  b.Write( []byte("hello"), index )
+  b.WriteFile("patched.exe")
 
 }
