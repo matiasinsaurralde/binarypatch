@@ -5,6 +5,7 @@ Storing & retrieving arbitrary data from program headers
 ## Supported architectures
 
 * OSX/Darwin
+* Windows
 
 ## License
 
